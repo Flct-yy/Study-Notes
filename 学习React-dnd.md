@@ -15,3 +15,20 @@
 **连接器（Connector）** 是用来将 React 组件的 DOM 节点与拖放逻辑 “绑定” 的工具。用来告诉React-DnD“这个DOM节点是可拖拽源”或“那个DOM节点是拖放目标”，让底层能处理其拖拽事件。
 
 **拖放后端** 将原生的DOM事件（比如鼠标按下、移动...）转化为统一识别的内部事件。初学只要知道“选择一个能用的后端（例如PC端默认选择HTML5后端），组件就能实现正常拖放”就行。
+
+## 环境配置
+
+### 安装配置
+在你需要安装的 React 项目中添加 react-dnd(核心库) 和 react-dnd-html5-backend（PC端默认的后端，处理原生DOM事件）
+
+```
+npm install react-dnd react-dnd-html5-backend
+或者使用 yarn 安装
+yarn add react-dnd react-dnd-html5-backend
+```
+
+### 全局注入后端
+在项目入口文件（例如index.js）中，用DndProvider包裹整个应用，注入后端，以便后续组件能直接使用拖拽的功能。
+
+
+## 项目练习
