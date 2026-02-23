@@ -10,7 +10,7 @@ URL作为Web资源的唯一标识，浏览器接收用户输入的字符串后�
 
 浏览器会对输入字符串进行格式校验，判断其是否符合URL标准规范。若输入字符串不完整（如仅输入“www.example.com”），浏览器将自动补全协议、默认端口等必要字段，补全后为“https://www.example.com/”；其中，HTTPS协议默认端口为443，HTTP协议默认端口为80，补全操作可确保后续网络通信的正常发起。
 
-一个完整的URL结构可拆解为六个核心部分，以“https://www.example.com:443/path?query=1#hash”为例，各部分功能如下：
+一个完整的URL结构可拆解为六个核心部分，以“https://www.example.com:443/path?query=1#hash” 为例，各部分功能如下：
 
 - 协议（scheme）：即https，用于定义浏览器与服务器之间的通信规则，常用协议还包括HTTP、FTP等；
 
