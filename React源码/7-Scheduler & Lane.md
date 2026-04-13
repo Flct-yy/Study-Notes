@@ -51,7 +51,11 @@ React Scheduler 是 React 并发模式的核心模块，本质是“任务管理
         通俗补充：就像写作业，每写20分钟（对应16.6ms），就检查一下有没有人叫你（浏览器是否需要工作），有就暂停，没人叫就继续写。
 
 
-- **任务调度循环**：通过workLoop（工作循环）推进任务，核心流程：① 先将timerQueue中到期的任务移至taskQueue；② 从taskQueue中取出堆顶的最高优先级任务执行；③ 若任务未执行完毕（返回回调函数），则放回taskQueue，等待下一轮调度；④ 重复以上步骤，直到队列清空。
+- **任务调度循环**：通过workLoop（工作循环）推进任务，核心流程：
+    - ① 先执行advanceTimers，将timerQueue中已到期（currentTime >= startTime）的任务移出，按优先级计算expirationTime后，移至taskQueue并重新堆排序；
+    - ② 从taskQueue（按expirationTime排序的最小堆）中取出堆顶（最早过期、优先级最高）的任务执行；
+    - ③ 执行过程中，每完成一个 Fiber 工作单元，调用shouldYieldToHost()检查是否需要让出主线程：若需让出则暂停任务、保留执行进度，不重新入队，等待下一轮调度；若任务执行完毕则直接销毁；
+    - ④ 重复以上步骤，直到taskQueue与timerQueue均无待执行任务，循环结束。
       
 
 # 三、Lane（车道模型）详解（面试核心）
