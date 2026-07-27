@@ -148,9 +148,9 @@ el.style.visibility = 'hidden';
 |---|---|---|---|
 |display: none|❌ 不占位（元素消失，释放空间）|✅ 触发重排|✅ 触发重绘|
 |visibility: hidden|✅ 占位（元素隐藏，但空间保留）|❌ 不触发重排|✅ 触发重绘|
-|opacity: 0|✅ 占位（元素透明，空间保留）|❌ 不触发重排|✅ 触发重绘|
+|opacity: 0|✅ 占位（元素透明，空间保留）|❌ 不触发重排|❌ 不触发重绘|
 
-通俗解读：display: none 是“把家具搬走”（占的地方没了，其他家具要挪位置 → 重排）；visibility: hidden 和 opacity: 0 是“把家具盖起来”（位置还在，只是看不见，不用挪家具 → 不重排，只重绘）。
+通俗解读：display: none 是“把家具搬走”（占的地方没了，其他家具要挪位置 → 重排）；visibility: hidden 是“把家具盖起来”（位置还在，只是看不见，不用挪家具 → 不重排，只重绘）；opacity: 0 则是将家具单独分层，仅调整图层透明度，不用重新绘制内容。
 
 ## 5. Repaint 示例（面试可直接口述）
 
@@ -297,7 +297,7 @@ el.style.display = 'block';
 
 ## 3. display: none、visibility: hidden、opacity: 0 的区别？（必考对比题）
 
-应答：从三个维度区分：① 是否占位：display: none 不占位，visibility: hidden 和 opacity: 0 占位；② 是否触发重排：display: none 触发重排，后两者不触发；③ 是否触发重绘：三者都触发重绘。简单记：display 是“搬走家具”，visibility 和 opacity 是“盖住家具”。
+应答：可从占位、重排、重绘三点区分三者：display:none脱离文档流不占位，会触发重排与重绘；visibility:hidden和opacity:0保留占位，不触发重排，其中visibility:hidden会触发重绘，opacity:0仅GPU合成无重绘。形象来说，display是移走家具，visibility是盖住家具，opacity是把家具整层调透明。
 
 ## 4. 为什么 Reflow 的性能开销比 Repaint 大？（追问高频题）
 
